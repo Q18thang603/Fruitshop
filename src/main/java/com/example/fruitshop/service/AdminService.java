@@ -3,16 +3,18 @@ package com.example.fruitshop.service;
 import com.example.fruitshop.entity.Order;
 import com.example.fruitshop.entity.OrderStatus;
 import com.example.fruitshop.repository.OrderRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class AdminService {
 
     private final OrderRepository orderRepository;
+
+    public AdminService(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
     // 🔥 lấy tất cả đơn hàng
     public List<Order> getAllOrders() {

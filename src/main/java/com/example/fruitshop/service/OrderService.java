@@ -2,7 +2,6 @@ package com.example.fruitshop.service;
 
 import com.example.fruitshop.entity.*;
 import com.example.fruitshop.repository.*;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -10,11 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class OrderService {
 
     private final CartService cartService;
     private final OrderRepository orderRepository;
+
+    public OrderService(CartService cartService, OrderRepository orderRepository) {
+        this.cartService = cartService;
+        this.orderRepository = orderRepository;
+    }
 
     public Order createOrder(User user) {
 

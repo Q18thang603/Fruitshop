@@ -4,7 +4,6 @@ import com.example.fruitshop.entity.Order;
 import com.example.fruitshop.entity.OrderStatus;
 import com.example.fruitshop.payment.VnPayUtil;
 import com.example.fruitshop.repository.OrderRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +11,13 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
-@RequiredArgsConstructor
 public class PaymentService {
 
     private final OrderRepository orderRepository;
+
+    public PaymentService(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
     @Value("${vnpay.tmnCode}")
     private String tmnCode;

@@ -13,15 +13,20 @@ import com.example.fruitshop.repository.CartItemRepository;
 import com.example.fruitshop.repository.CartRepository;
 import com.example.fruitshop.repository.ProductRepository;
 
-import lombok.RequiredArgsConstructor;
-
 @Service
-@RequiredArgsConstructor
 public class CartService {
 
-	private final CartRepository cartRepository;
-	private final CartItemRepository cartItemRepository;
-	private final ProductRepository productRepository;
+    private final CartRepository cartRepository;
+    private final CartItemRepository cartItemRepository;
+    private final ProductRepository productRepository;
+
+    public CartService(CartRepository cartRepository,
+                       CartItemRepository cartItemRepository,
+                       ProductRepository productRepository) {
+        this.cartRepository = cartRepository;
+        this.cartItemRepository = cartItemRepository;
+        this.productRepository = productRepository;
+    }
 
 	// =========================
 	// 1. Lấy hoặc tạo Cart

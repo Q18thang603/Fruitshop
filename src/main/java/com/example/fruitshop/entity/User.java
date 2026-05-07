@@ -2,6 +2,7 @@ package com.example.fruitshop.entity;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +24,8 @@ public class User {
 	private String username;
 
 	private Boolean enabled = true;
+
+	@JsonIgnore
 	private String password;
 	private String email;
 	private String phone;

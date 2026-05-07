@@ -1,17 +1,23 @@
 package com.example.fruitshop.controller;
 
-import com.example.fruitshop.service.PaymentService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.Map;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.fruitshop.service.PaymentService;
 
 @RestController
 @RequestMapping("/api/payment")
-@RequiredArgsConstructor
 public class PaymentController {
 
     private final PaymentService paymentService;
+
+    public PaymentController(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
 
     @GetMapping("/vnpay/create")
     public String create(@RequestParam Long orderId) {
