@@ -39,5 +39,6 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+      - run: chmod +x mvnw
 
       - run: ./mvnw clean install -DskipTests
