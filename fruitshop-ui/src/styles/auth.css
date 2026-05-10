@@ -1,0 +1,201 @@
+/* =========================================
+   AUTH PAGES — matches the site design system
+   Colors:  #174f36 (dark-green), #d25439 (accent-red), #004d3f (link-green)
+   Font:    "Segoe UI", Roboto, Arial, sans-serif
+   Radius:  16px (cards), 999px (pills), 5px (inputs)
+   ========================================= */
+
+/* ---------- page wrapper ---------- */
+.auth-page {
+  min-height: calc(100vh - 230px);   /* keeps footer at the bottom */
+  display: grid;
+  place-items: center;
+  padding: 72px 24px 96px;
+  background: #fbf8f7;               /* same as .service-strip */
+}
+
+/* ---------- card ---------- */
+.auth-box {
+  width: 100%;
+  max-width: 480px;
+  padding: 48px 44px 52px;
+  border: 1px solid #e3e3e3;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 18px 44px rgba(23, 79, 54, 0.09);
+}
+
+/* ---------- headings ---------- */
+.auth-box h2 {
+  margin-bottom: 6px;
+  color: #174f36;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.3px;
+}
+
+.auth-box p {
+  margin-bottom: 28px;
+  color: #6d6d6d;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+/* ---------- social button ---------- */
+.auth-social-button {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 1.5px solid #ddd;
+  border-radius: 999px;
+  background: #fff;
+  color: #3c4043;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+
+.auth-social-button:hover {
+  border-color: #d25439;
+  box-shadow: 0 4px 14px rgba(210, 84, 57, 0.14);
+}
+
+/* ---------- divider ---------- */
+.auth-divider {
+  position: relative;
+  margin: 24px 0;
+  text-align: center;
+  color: #aaa;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: calc(50% - 28px);
+  height: 1px;
+  background: #e5e5e5;
+}
+
+.auth-divider::before { left: 0; }
+.auth-divider::after  { right: 0; }
+
+/* ---------- form & inputs ---------- */
+.auth-box form {
+  display: grid;
+  gap: 14px;
+}
+
+.auth-input-group {
+  display: grid;
+  gap: 6px;
+}
+
+.auth-input-group label {
+  color: #285b42;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.auth-box input[type="text"],
+.auth-box input[type="email"],
+.auth-box input[type="password"],
+.auth-box input[type="tel"] {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  background: #fafafa;
+  color: #174f36;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+
+.auth-box input:focus {
+  border-color: #174f36;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(23, 79, 54, 0.08);
+}
+
+.auth-box input::placeholder {
+  color: #b0b0b0;
+}
+
+/* ---------- primary submit button ---------- */
+.auth-submit-button {
+  width: 100%;
+  height: 50px;
+  margin-top: 8px;
+  border: 0;
+  border-radius: 999px;
+  background: #174f36;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.14s, box-shadow 0.18s;
+}
+
+.auth-submit-button:hover:not(:disabled) {
+  background: #1d6344;
+  box-shadow: 0 8px 22px rgba(23, 79, 54, 0.25);
+  transform: translateY(-1px);
+}
+
+.auth-submit-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* ---------- footer link ---------- */
+.auth-footer {
+  margin-top: 22px;
+  text-align: center;
+  color: #6d6d6d;
+  font-size: 14px;
+}
+
+.auth-footer a {
+  color: #d25439;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.auth-footer a:hover {
+  color: #b33e26;
+}
+
+/* ---------- error message ---------- */
+.auth-error {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #fff4f2;
+  border: 1px solid #f9c9be;
+  color: #d25439;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 600px) {
+  .auth-box {
+    padding: 36px 24px 40px;
+  }
+
+  .auth-box h2 {
+    font-size: 23px;
+  }
+}

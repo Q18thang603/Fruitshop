@@ -1,0 +1,118 @@
+/* --- Hero Banner Styles --- */
+.hero {
+  position: relative;
+  height: 500px;
+  background-color: var(--bg-light);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.hero-visual {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-visual::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0) 100%);
+}
+
+.hero-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  padding-left: 50px;
+}
+
+.hero-tag {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--bg-white);
+  padding: 5px 15px;
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.hero-copy h1 {
+  font-size: 56px;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  color: var(--primary);
+  text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+}
+
+.hero-copy p {
+  font-size: 20px;
+  color: var(--text-muted);
+  margin-bottom: 30px;
+}
+
+.shop-btn {
+  display: inline-block;
+  background: var(--primary);
+  color: var(--bg-white);
+  padding: 15px 40px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.shop-btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.discount-badge {
+  position: absolute;
+  top: 50px;
+  right: 10%;
+  z-index: 2;
+  background: var(--accent);
+  color: var(--bg-white);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--shadow-md);
+  transform: rotate(15deg);
+}
+
+.discount-badge span {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.discount-badge strong {
+  font-size: 36px;
+  line-height: 1;
+}
