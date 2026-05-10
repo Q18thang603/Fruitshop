@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fruit Shop</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header>
+    <div class="brand">Fruit Shop</div>
+    <button id="logoutBtn" class="btn hidden">Đăng xuất</button>
+</header>
+<main>
+    <section id="authSection" class="card">
+        <h2>Đăng nhập / Đăng ký</h2>
+        <div class="forms">
+            <form id="loginForm">
+                <h3>Đăng nhập</h3>
+                <label>Username<input type="text" id="loginUsername" required /></label>
+                <label>Password<input type="password" id="loginPassword" required /></label>
+                <button type="submit" class="btn">Đăng nhập</button>
+            </form>
+            <form id="registerForm">
+                <h3>Đăng ký</h3>
+                <label>Username<input type="text" id="registerUsername" required /></label>
+                <label>Password<input type="password" id="registerPassword" required /></label>
+                <label>Email<input type="email" id="registerEmail" required /></label>
+                <label>Phone<input type="text" id="registerPhone" required /></label>
+                <button type="submit" class="btn">Đăng ký</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="appSection" class="hidden">
+        <div class="panel">
+            <div class="panel-nav">
+                <button class="btn" id="productsTab">Sản phẩm</button>
+                <button class="btn" id="cartTab">Giỏ hàng</button>
+                <button class="btn" id="ordersTab">Đơn hàng</button>
+            </div>
+            <div class="panel-body">
+                <div id="message" class="message hidden"></div>
+                <div id="productsView" class="view"></div>
+                <div id="cartView" class="view hidden"></div>
+                <div id="ordersView" class="view hidden"></div>
+            </div>
+        </div>
+    </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
