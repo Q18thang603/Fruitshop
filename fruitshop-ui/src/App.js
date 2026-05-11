@@ -22,6 +22,7 @@ import Register from "./pages/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminProducts from "./pages/AdminProducts";
 import AdminDashboard from "./pages/AdminDashboard";
+import AIChatbox from "./components/AIChatbox";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -73,6 +74,8 @@ function App() {
       </Routes>
 
       {!isAdminRoute && <Footer />}
+
+      <AIChatbox />
 
       <ToastContainer position="top-right" autoClose={2500} />
     </>

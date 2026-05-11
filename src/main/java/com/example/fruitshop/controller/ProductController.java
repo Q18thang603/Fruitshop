@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.fruitshop.entity.Product;
 import com.example.fruitshop.service.ProductService;
+import com.example.fruitshop.dto.ApiResponse;
 
 @RestController
 @RequestMapping("/api/products")
@@ -19,12 +20,12 @@ public class ProductController {
 	private ProductService service;
 
 	@GetMapping
-	public List<Product> getAll() {
-		return service.getAll();
+	public ApiResponse<List<Product>> getAll() {
+		return ApiResponse.success(service.getAll());
 	}
 
 	@GetMapping("/{id}")
-	public Product getById(@PathVariable Long id) {
-		return service.getById(id);
+	public ApiResponse<Product> getById(@PathVariable Long id) {
+		return ApiResponse.success(service.getById(id));
 	}
 }

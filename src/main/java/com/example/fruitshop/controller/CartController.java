@@ -1,50 +1,45 @@
 package com.example.fruitshop.controller;
 
-import com.example.fruitshop.entity.User;
+import com.example.fruitshop.dto.ApiResponse;
+import com.example.fruitshop.dto.CartItemRequest;
+import com.example.fruitshop.entity.Cart;
 import com.example.fruitshop.service.CartService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/cart")
 public class CartController {
 
-    private final CartService cartService;
-
-    public CartController(CartService cartService) {
-        this.cartService = cartService;
-    }
-
-    @PostMapping("/add")
-    public ResponseEntity<?> addToCart(
-            @AuthenticationPrincipal User user,
-            @RequestParam Long productId,
-            @RequestParam int quantity) {
-
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("message", "Unauthorized"));
-        }
-
-        return ResponseEntity.ok(cartService.addToCart(user, productId, quantity));
-    }
+    @Autowired
+    private CartService cartService;
 
     @GetMapping
-    public ResponseEntity<?> getCart(@AuthenticationPrincipal User user) {
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("message", "Unauthorized"));
-        }
-        return ResponseEntity.ok(cartService.getCartItems(user));
+    public ApiResponse<Cart> getCart(Authentication authentication) {
+        String username = authentication.getName();
+        return ApiResponse.success("Cart retrieved successfully", cartService.getCart(username));
     }
 
-    @DeleteMapping("/remove/{id}")
-    public ResponseEntity<?> remove(@PathVariable Long id) {
-        cartService.removeItem(id);
-        return ResponseEntity.ok("Deleted");
+    @PostMapping("/items")
+    public ApiResponse<Cart> addToCart(Authentication authentication, @Valid @RequestBody CartItemRequest request) {
+        String username = authentication.getName();
+        return ApiResponse.success("Item added to cart", cartService.addToCart(username, request));
+    }
+
+    @PutMapping("/items/{itemId}")
+    public ApiResponse<Cart> updateQuantity(
+            Authentication authentication,
+            @PathVariable Long itemId,
+            @RequestParam Integer quantity) {
+        String username = authentication.getName();
+        return ApiResponse.success("Cart updated", cartService.updateQuantity(username, itemId, quantity));
+    }
+
+    @DeleteMapping("/items/{itemId}")
+    public ApiResponse<Cart> removeFromCart(Authentication authentication, @PathVariable Long itemId) {
+        String username = authentication.getName();
+        return ApiResponse.success("Item removed from cart", cartService.removeFromCart(username, itemId));
     }
 }

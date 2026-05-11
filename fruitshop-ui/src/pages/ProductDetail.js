@@ -21,7 +21,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Breadcrumb, Button, InputNumber, Rate, Tag, Divider, Spin } from "antd";
 import { CartContext } from "../context/CartContext";
 import api from "../api/axios";
-import { setFallbackImage, DEFAULT_FALLBACK_IMAGE } from "../utils/cloudinary";
+import { getProductImage } from "../utils/imageUtils";
+import { setFallbackImage } from "../utils/cloudinary";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -105,7 +106,7 @@ export default function ProductDetail() {
                 initial={{ scale: 1.1, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5 }}
-                src={product.image || DEFAULT_FALLBACK_IMAGE}
+                src={getProductImage(product.image)}
                 alt={product.name}
                 loading="lazy"
                 onError={(event) => setFallbackImage(event, product.imageFallback)}
@@ -123,7 +124,7 @@ export default function ProductDetail() {
             <div className="grid grid-cols-4 gap-4">
               {[1, 2, 3, 4].map((i) => (
                 <div key={i} className={`aspect-square rounded-2xl overflow-hidden border-2 transition-all cursor-pointer ${i === 1 ? 'border-primary-500 scale-95 shadow-lg' : 'border-transparent hover:border-primary-200 opacity-60 hover:opacity-100'}`}>
-                  <img src={product.image || DEFAULT_FALLBACK_IMAGE} className="w-full h-full object-cover" loading="lazy" alt="" />
+                  <img src={getProductImage(product.image)} className="w-full h-full object-cover" loading="lazy" alt="" />
                 </div>
               ))}
             </div>

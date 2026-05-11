@@ -1,10 +1,6 @@
 package com.example.fruitshop.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-
+import com.example.fruitshop.dto.CartItemRequest;
 import com.example.fruitshop.entity.Cart;
 import com.example.fruitshop.entity.CartItem;
 import com.example.fruitshop.entity.Product;
@@ -12,114 +8,89 @@ import com.example.fruitshop.entity.User;
 import com.example.fruitshop.repository.CartItemRepository;
 import com.example.fruitshop.repository.CartRepository;
 import com.example.fruitshop.repository.ProductRepository;
+import com.example.fruitshop.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Optional;
 
 @Service
 public class CartService {
 
-    private final CartRepository cartRepository;
-    private final CartItemRepository cartItemRepository;
-    private final ProductRepository productRepository;
+    @Autowired
+    private CartRepository cartRepository;
 
-    public CartService(CartRepository cartRepository,
-                       CartItemRepository cartItemRepository,
-                       ProductRepository productRepository) {
-        this.cartRepository = cartRepository;
-        this.cartItemRepository = cartItemRepository;
-        this.productRepository = productRepository;
+    @Autowired
+    private CartItemRepository cartItemRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    public Cart getCart(String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found");
+        }
+        return cartRepository.findByUser(user).orElseGet(() -> {
+            Cart newCart = new Cart();
+            newCart.setUser(user);
+            return cartRepository.save(newCart);
+        });
     }
 
-	// =========================
-	// 1. Lấy hoặc tạo Cart
-	// =========================
-	public Cart getOrCreateCart(User user) {
-		return cartRepository.findByUser(user).orElseGet(() -> {
-			Cart cart = new Cart();
-			cart.setUser(user);
-			return cartRepository.save(cart);
-		});
-	}
+    public Cart addToCart(String username, CartItemRequest request) {
+        Cart cart = getCart(username);
+        Product product = productRepository.findById(request.getProductId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
 
-	// =========================
-	// 2. Thêm sản phẩm vào giỏ
-	// =========================
-	public Cart addToCart(User user, Long productId, int quantity) {
+        Optional<CartItem> existingItem = cart.getItems().stream()
+                .filter(item -> item.getProduct().getId().equals(product.getId()))
+                .findFirst();
 
-		Cart cart = getOrCreateCart(user);
+        if (existingItem.isPresent()) {
+            CartItem item = existingItem.get();
+            item.setQuantity(item.getQuantity() + request.getQuantity());
+        } else {
+            CartItem newItem = new CartItem();
+            newItem.setCart(cart);
+            newItem.setProduct(product);
+            newItem.setQuantity(request.getQuantity());
+            cart.getItems().add(newItem);
+        }
 
-		Product product = productRepository.findById(productId)
-				.orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm"));
+        return cartRepository.save(cart);
+    }
 
-		// Nếu sản phẩm đã có → tăng số lượng
-		Optional<CartItem> existingItem = cartItemRepository.findByCartAndProduct(cart, product);
+    public Cart updateQuantity(String username, Long cartItemId, Integer quantity) {
+        Cart cart = getCart(username);
+        CartItem item = cartItemRepository.findById(cartItemId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cart item not found"));
 
-		if (existingItem.isPresent()) {
-			CartItem item = existingItem.get();
-			item.setQuantity(item.getQuantity() + quantity);
-			cartItemRepository.save(item);
-		} else {
-			CartItem newItem = new CartItem();
-			newItem.setCart(cart);
-			newItem.setProduct(product);
-			newItem.setQuantity(quantity);
-			cartItemRepository.save(newItem);
-		}
+        if (!item.getCart().getId().equals(cart.getId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not your cart item");
+        }
 
-		return cart;
-	}
+        item.setQuantity(quantity);
+        cartItemRepository.save(item);
+        return getCart(username);
+    }
 
-	// =========================
-	// 3. Lấy danh sách sản phẩm trong giỏ
-	// =========================
-	public List<CartItem> getCartItems(User user) {
-		Cart cart = getOrCreateCart(user);
-		return cartItemRepository.findByCart(cart);
-	}
+    public Cart removeFromCart(String username, Long cartItemId) {
+        Cart cart = getCart(username);
+        CartItem item = cartItemRepository.findById(cartItemId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cart item not found"));
 
-	// =========================
-	// 4. Cập nhật số lượng
-	// =========================
-	public void updateQuantity(Long cartItemId, int quantity) {
-		CartItem item = cartItemRepository.findById(cartItemId)
-				.orElseThrow(() -> new RuntimeException("Không tìm thấy item"));
+        if (!item.getCart().getId().equals(cart.getId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Not your cart item");
+        }
 
-		if (quantity <= 0) {
-			cartItemRepository.delete(item);
-		} else {
-			item.setQuantity(quantity);
-			cartItemRepository.save(item);
-		}
-	}
-
-	// =========================
-	// 5. Xóa 1 sản phẩm khỏi giỏ
-	// =========================
-	public void removeItem(Long cartItemId) {
-		if (!cartItemRepository.existsById(cartItemId)) {
-			throw new RuntimeException("Item không tồn tại");
-		}
-		cartItemRepository.deleteById(cartItemId);
-	}
-
-	// =========================
-	// 6. Xóa toàn bộ giỏ hàng
-	// =========================
-	public void clearCart(User user) {
-		Cart cart = getOrCreateCart(user);
-		List<CartItem> items = cartItemRepository.findByCart(cart);
-		cartItemRepository.deleteAll(items);
-	}
-
-	// =========================
-	// 7. Tính tổng tiền
-	// =========================
-	public double getTotalPrice(User user) {
-		List<CartItem> items = getCartItems(user);
-
-		double total = 0;
-		for (CartItem item : items) {
-			total += item.getProduct().getPrice() * item.getQuantity();
-		}
-
-		return total;
-	}
+        cart.getItems().remove(item);
+        cartItemRepository.delete(item);
+        return cartRepository.save(cart);
+    }
 }

@@ -1,32 +1,39 @@
 package com.example.fruitshop.security;
 
-import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
+import java.security.Key;
+import java.util.Date;
+
 import org.springframework.stereotype.Component;
 
-import javax.crypto.SecretKey;
-import java.util.Date;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JwtUtil {
 
-    private final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+	private final String SECRET = "12345678901234567890123456789012"; // key 32 ký tự
 
-    public String generateToken(String username) {
-        return Jwts.builder()
+	private Key getKey() {
+		return Keys.hmacShaKeyFor(SECRET.getBytes());
+	}
+
+	// tạo token
+	public String generateToken(String username, String role) {
+		return Jwts.builder()
                 .setSubject(username)
+                .claim("role", role)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 86400000))
-                .signWith(SECRET_KEY)
-                .compact();
-    }
+				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1h
+				.signWith(getKey()).compact();
+	}
 
-    public String extractUsername(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(SECRET_KEY)
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
-    }
+	// lấy username từ token
+	public String extractUsername(String token) {
+		return Jwts.parserBuilder().setSigningKey(getKey()).build().parseClaimsJws(token).getBody().getSubject();
+	}
+
+	// lấy role từ token
+	public String extractRole(String token) {
+		return Jwts.parserBuilder().setSigningKey(getKey()).build().parseClaimsJws(token).getBody().get("role", String.class);
+	}
 }

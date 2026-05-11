@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Navigate, Link, useLocation } from "react-router-dom";
 import api from "../api/axios";
@@ -11,11 +11,9 @@ import {
     Table, 
     Tag, 
     Avatar, 
-    Dropdown, 
     Space,
     Typography,
     ConfigProvider,
-    Spin,
     Input,
     Modal,
     Form,
@@ -25,26 +23,10 @@ import {
     Tooltip,
     Popconfirm
 } from 'antd';
-import { 
-    LayoutDashboard, 
-    Package, 
-    ShoppingCart, 
-    Users, 
-    BarChart3, 
-    Settings, 
-    LogOut, 
-    Menu as MenuIcon,
-    Bell,
-    Plus,
-    Search,
-    Edit3,
-    Trash2,
-    Image as ImageIcon,
-    UploadCloud,
-    X,
-    Filter
-} from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { LayoutDashboard, Package, ShoppingCart, Users, BarChart3, Settings, Menu as MenuIcon, Plus, Search, Edit3, Trash2, Image as ImageIcon, UploadCloud, X } from 'lucide-react';
+import { motion } from 'framer-motion';
+import adminService from "../api/adminService";
+import { getProductImage } from "../utils/imageUtils";
 
 const { Header, Sider, Content } = Layout;
 const { Title, Text } = Typography;
@@ -60,7 +42,7 @@ const CATEGORIES = [
 ];
 
 export default function AdminProducts() {
-    const { user, logout } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const location = useLocation();
     const [collapsed, setCollapsed] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -140,7 +122,7 @@ export default function AdminProducts() {
             render: (text, record) => (
                 <Space size={16}>
                     <Avatar 
-                        src={record.image} 
+                        src={getProductImage(record.image)} 
                         shape="square" 
                         size={64} 
                         icon={<ImageIcon size={20} />} 
@@ -297,29 +279,52 @@ export default function AdminProducts() {
                     <Form form={form} layout="vertical" onFinish={handleSave} className="mt-8 space-y-6" requiredMark={false}>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <Form.Item label={<span className="text-xs font-black text-slate-400 uppercase tracking-widest">Ảnh sản phẩm</span>}>
-                                <div className="flex items-center gap-4">
-                                    <Form.Item name="image" noStyle>
-                                        <Input placeholder="URL ảnh hoặc tải lên..." className="h-12 rounded-xl flex-1" />
-                                    </Form.Item>
-                                    <Upload
-                                        name="file"
-                                        action={`${process.env.REACT_APP_API_URL || 'http://localhost:8080/api'}/admin/products/upload-image`}
-                                        headers={{ Authorization: `Bearer ${localStorage.getItem('token')}` }}
-                                        showUploadList={false}
-                                        onChange={(info) => {
-                                            if (info.file.status === 'uploading') return;
-                                            if (info.file.status === 'done') {
-                                                form.setFieldsValue({ image: info.file.response.data });
-                                                toast.success("Tải ảnh lên thành công");
-                                            } else if (info.file.status === 'error') {
-                                                toast.error("Tải ảnh thất bại");
-                                            }
+                                <div className="flex flex-col gap-4">
+                                    <div className="flex items-center gap-4">
+                                        <Form.Item name="image" noStyle>
+                                            <Input placeholder="URL ảnh hoặc tải lên..." className="h-12 rounded-xl flex-1" />
+                                        </Form.Item>
+                                        <Upload
+                                            name="file"
+                                            action={`${process.env.REACT_APP_API_URL || 'http://localhost:8080/api'}/admin/products/upload-image`}
+                                            headers={{ Authorization: `Bearer ${localStorage.getItem('token')}` }}
+                                            showUploadList={false}
+                                            onChange={(info) => {
+                                                if (info.file.status === 'uploading') return;
+                                                if (info.file.status === 'done') {
+                                                    form.setFieldsValue({ image: info.file.response.data });
+                                                    toast.success("Tải ảnh lên thành công");
+                                                } else if (info.file.status === 'error') {
+                                                    toast.error("Tải ảnh thất bại");
+                                                }
+                                            }}
+                                        >
+                                            <Button type="button" icon={<UploadCloud size={18} />} className="h-12 px-6 rounded-xl font-bold flex items-center gap-2">
+                                                TẢI LÊN
+                                            </Button>
+                                        </Upload>
+                                    </div>
+                                    <Form.Item noStyle shouldUpdate={(prev, curr) => prev.image !== curr.image}>
+                                        {({ getFieldValue }) => {
+                                            const image = getFieldValue('image');
+                                            return image ? (
+                                                <div className="mt-2 relative w-32 h-32 rounded-2xl overflow-hidden border-2 border-slate-100 shadow-inner">
+                                                    <img 
+                                                        src={getProductImage(image)} 
+                                                        alt="Preview" 
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                    <button 
+                                                        type="button"
+                                                        onClick={() => form.setFieldsValue({ image: '' })}
+                                                        className="absolute top-1 right-1 bg-white/80 backdrop-blur-sm p-1 rounded-full text-red-500 hover:text-red-600 transition-colors shadow-sm"
+                                                    >
+                                                        <X size={14} />
+                                                    </button>
+                                                </div>
+                                            ) : null;
                                         }}
-                                    >
-                                        <Button icon={<UploadCloud size={18} />} className="h-12 px-6 rounded-xl font-bold flex items-center gap-2">
-                                            TẢI LÊN
-                                        </Button>
-                                    </Upload>
+                                    </Form.Item>
                                 </div>
                             </Form.Item>
                             <Form.Item name="category" label={<span className="text-xs font-black text-slate-400 uppercase tracking-widest">Danh mục</span>} rules={[{ required: true }]}>

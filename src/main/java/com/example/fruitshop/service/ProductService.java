@@ -19,7 +19,7 @@ public class ProductService {
 	}
 
 	public Product getById(Long id) {
-		return repo.findById(id).orElse(null);
+		return repo.findById(id).orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Product not found with id: " + id));
 	}
 
 	public Product save(Product p) {

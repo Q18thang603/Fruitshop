@@ -13,7 +13,8 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { Button, InputNumber, Divider, Empty, Card } from "antd";
 import { CartContext } from "../context/CartContext";
-import { setFallbackImage, DEFAULT_FALLBACK_IMAGE } from "../utils/cloudinary";
+import { getProductImage } from "../utils/imageUtils";
+import { setFallbackImage } from "../utils/cloudinary";
 
 export default function Cart() {
   const {
@@ -80,7 +81,7 @@ export default function Cart() {
                   >
                     <div className="w-full md:w-32 aspect-square rounded-2xl overflow-hidden bg-slate-50 border border-slate-100 shrink-0 relative">
                        <img
-                        src={item.image || DEFAULT_FALLBACK_IMAGE}
+                        src={getProductImage(item.image)}
                         alt={item.name}
                         loading="lazy"
                         className="w-full h-full object-cover transition-transform group-hover:scale-110 duration-500"

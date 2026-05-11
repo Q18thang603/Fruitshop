@@ -11,7 +11,8 @@ import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { Button, Tooltip, Rate } from "antd";
 import { CartContext } from "../context/CartContext";
-import { setFallbackImage, DEFAULT_FALLBACK_IMAGE } from "../utils/cloudinary";
+import { getProductImage } from "../utils/imageUtils";
+import { setFallbackImage } from "../utils/cloudinary";
 
 export default function ProductCard({ product }) {
   const { addToCart } = useContext(CartContext);
@@ -58,7 +59,7 @@ export default function ProductCard({ product }) {
         <motion.img
           animate={{ scale: isHovered ? 1.1 : 1 }}
           transition={{ duration: 0.6 }}
-          src={product.image || DEFAULT_FALLBACK_IMAGE}
+          src={getProductImage(product.image)}
           alt={product.name}
           loading="lazy"
           onError={(event) => setFallbackImage(event, product.imageFallback)}

@@ -4,12 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
-@Table(name = "product")
+@Table(name = "products")
+@Data
 public class Product {
 
 	@Id
@@ -21,12 +21,8 @@ public class Product {
 	private Integer quantity;
 	private String image;
 	private String description;
-
-	@ManyToOne
-	@JoinColumn(name = "category_id")
-	private Category category;
-
-	// ====== GETTER SETTER ======
+	private String category;
+	private java.time.LocalDateTime createdAt;
 
 	public Long getId() {
 		return id;
@@ -76,11 +72,20 @@ public class Product {
 		this.description = description;
 	}
 
-	public Category getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(Category category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
+
+	public java.time.LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(java.time.LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
 }
