@@ -6,10 +6,12 @@
   },
   "deploy": {
     "startCommand": "java -jar target/fruitshopp-0.0.1-SNAPSHOT.jar",
-    "restartPolicyType": "ON_FAILURE"
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 3,
+    "healthcheckPath": "/actuator/health",
+    "healthcheckTimeout": 60
   },
   "variables": {
-    "NIXPACKS_JDK_VERSION": "21",
-    "PORT": "8080"
+    "NIXPACKS_JDK_VERSION": "21"
   }
 }
