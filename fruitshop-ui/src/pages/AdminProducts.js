@@ -286,7 +286,7 @@ export default function AdminProducts() {
                                         </Form.Item>
                                         <Upload
                                             name="file"
-                                            action={`${process.env.REACT_APP_API_URL || 'http://localhost:8080/api'}/admin/products/upload-image`}
+                                            action={`${process.env.REACT_APP_API_URL || 'https://fruitshop-production-f130.up.railway.app/api'}/admin/products/upload-image`}
                                             headers={{ Authorization: `Bearer ${localStorage.getItem('token')}` }}
                                             showUploadList={false}
                                             onChange={(info) => {

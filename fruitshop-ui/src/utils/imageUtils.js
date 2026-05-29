@@ -2,7 +2,7 @@ import { DEFAULT_FALLBACK_IMAGE } from "./cloudinary";
 
 const BACKEND_URL = process.env.REACT_APP_API_URL 
   ? process.env.REACT_APP_API_URL.replace('/api', '') 
-  : "http://localhost:8080";
+  : "https://fruitshop-production-f130.up.railway.app";
 
 /**
  * Normalizes product image paths.
