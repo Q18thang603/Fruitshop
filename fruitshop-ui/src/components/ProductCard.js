@@ -1,13 +1,10 @@
 import { 
   ShoppingBasket, 
-  Star, 
-  ArrowRight,
   Eye,
   Heart
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
-import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { Button, Tooltip, Rate } from "antd";
 import { CartContext } from "../context/CartContext";

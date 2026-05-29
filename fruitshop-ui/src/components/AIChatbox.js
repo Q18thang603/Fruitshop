@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Bot, User, Loader2, Minus, Maximize2 } from 'lucide-react';
-import { Button, Input, Avatar } from 'antd';
+import { Input } from 'antd';
 
 const AIChatbox = () => {
   const [isOpen, setIsOpen] = useState(false);

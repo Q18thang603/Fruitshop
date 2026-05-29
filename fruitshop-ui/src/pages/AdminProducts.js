@@ -25,7 +25,6 @@ import {
 } from 'antd';
 import { LayoutDashboard, Package, ShoppingCart, Users, BarChart3, Settings, Menu as MenuIcon, Plus, Search, Edit3, Trash2, Image as ImageIcon, UploadCloud, X } from 'lucide-react';
 import { motion } from 'framer-motion';
-import adminService from "../api/adminService";
 import { getProductImage } from "../utils/imageUtils";
 
 const { Header, Sider, Content } = Layout;
@@ -156,7 +155,6 @@ export default function AdminProducts() {
             dataIndex: 'quantity',
             key: 'quantity',
             render: (qty) => {
-                const color = qty <= 0 ? 'red' : qty <= 10 ? 'orange' : 'green';
                 const bg = qty <= 0 ? 'bg-red-50' : qty <= 10 ? 'bg-orange-50' : 'bg-green-50';
                 const text = qty <= 0 ? 'text-red-600' : qty <= 10 ? 'text-orange-600' : 'text-green-600';
                 return (
