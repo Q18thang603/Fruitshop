@@ -74,6 +74,7 @@ public class SecurityConfig {
             configuration.setAllowedOrigins(Arrays.asList(
                 "https://fruitshopp.vercel.app",
                 "https://fruitshopp-git-main-q18thang603.vercel.app",
+                "https://fruitshop-iota.vercel.app",
                 "http://localhost:3000",
                 "http://localhost:3001",
                 "http://localhost:3002",
