@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Bot, User, Loader2, Minus, Maximize2 } from 'lucide-react';
-import { Input } from 'antd';
+import { Button, Input, Avatar } from 'antd';
 
 const AIChatbox = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,9 +63,9 @@ const AIChatbox = () => {
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            animate={{ 
-              opacity: 1, 
-              scale: 1, 
+            animate={{
+              opacity: 1,
+              scale: 1,
               y: 0,
               height: isMinimized ? '60px' : '500px',
               width: '380px'
@@ -89,13 +89,13 @@ const AIChatbox = () => {
                 </div>
               </div>
               <div className="flex items-center gap-1">
-                <button 
+                <button
                   onClick={() => setIsMinimized(!isMinimized)}
                   className="p-1.5 hover:bg-white/10 rounded-lg transition-colors"
                 >
                   {isMinimized ? <Maximize2 size={16} /> : <Minus size={16} />}
                 </button>
-                <button 
+                <button
                   onClick={() => setIsOpen(false)}
                   className="p-1.5 hover:bg-white/10 rounded-lg transition-colors"
                 >
@@ -111,16 +111,14 @@ const AIChatbox = () => {
                   {messages.map((msg) => (
                     <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                       <div className={`flex gap-2 max-w-[85%] ${msg.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-                        <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center shadow-sm ${
-                          msg.sender === 'user' ? 'bg-primary-100 text-primary-700' : 'bg-white text-primary-600 border border-primary-100'
-                        }`}>
+                        <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center shadow-sm ${msg.sender === 'user' ? 'bg-primary-100 text-primary-700' : 'bg-white text-primary-600 border border-primary-100'
+                          }`}>
                           {msg.sender === 'user' ? <User size={16} /> : <Bot size={16} />}
                         </div>
-                        <div className={`p-3 rounded-2xl text-sm shadow-sm ${
-                          msg.sender === 'user' 
-                            ? 'bg-primary-600 text-white rounded-tr-none' 
+                        <div className={`p-3 rounded-2xl text-sm shadow-sm ${msg.sender === 'user'
+                            ? 'bg-primary-600 text-white rounded-tr-none'
                             : 'bg-white text-slate-700 rounded-tl-none border border-slate-100'
-                        }`}>
+                          }`}>
                           {msg.text}
                           <div className={`text-[10px] mt-1 opacity-70 ${msg.sender === 'user' ? 'text-right' : 'text-left'}`}>
                             {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -155,14 +153,13 @@ const AIChatbox = () => {
                       bordered={false}
                       style={{ background: '#f8fafc' }}
                     />
-                    <button 
+                    <button
                       onClick={handleSend}
                       disabled={!inputValue.trim() || isTyping}
-                      className={`absolute right-1.5 p-2 rounded-lg transition-all ${
-                        inputValue.trim() && !isTyping 
-                        ? 'bg-primary-600 text-white shadow-md shadow-primary-200' 
-                        : 'bg-slate-100 text-slate-400'
-                      }`}
+                      className={`absolute right-1.5 p-2 rounded-lg transition-all ${inputValue.trim() && !isTyping
+                          ? 'bg-primary-600 text-white shadow-md shadow-primary-200'
+                          : 'bg-slate-100 text-slate-400'
+                        }`}
                     >
                       {isTyping ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
                     </button>
@@ -185,9 +182,8 @@ const AIChatbox = () => {
           setIsOpen(true);
           setIsMinimized(false);
         }}
-        className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 ${
-          isOpen ? 'bg-white text-primary-600 rotate-90 scale-0 opacity-0 pointer-events-none' : 'bg-primary-600 text-white'
-        }`}
+        className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 ${isOpen ? 'bg-white text-primary-600 rotate-90 scale-0 opacity-0 pointer-events-none' : 'bg-primary-600 text-white'
+          }`}
       >
         <MessageCircle size={28} />
       </motion.button>

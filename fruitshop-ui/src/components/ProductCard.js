@@ -1,10 +1,13 @@
-import { 
-  ShoppingBasket, 
+import {
+  ShoppingBasket,
+  Star,
+  ArrowRight,
   Eye,
   Heart
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
+import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { Button, Tooltip, Rate } from "antd";
 import { CartContext } from "../context/CartContext";
@@ -62,7 +65,7 @@ export default function ProductCard({ product }) {
           onError={(event) => setFallbackImage(event, product.imageFallback)}
           className="w-full h-full object-cover"
         />
-        
+
         {/* Overlay on Hover */}
         <div className={`absolute inset-0 bg-black/5 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`} />
       </Link>

@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import { 
-  ShoppingCart, 
-  User, 
-  Heart, 
-  Menu, 
-  ChevronDown, 
-  Phone, 
-  Search, 
+import {
+  ShoppingCart,
+  User,
+  Heart,
+  Menu,
+  ChevronDown,
+  Phone,
+  Search,
   Percent,
   X,
   LogOut,
@@ -21,7 +21,7 @@ import { ProductContext } from "../context/ProductContext";
 import { setFallbackImage } from "../utils/cloudinary";
 
 export default function Navbar({ search, setSearch }) {
-  const { totalQuantity } = useContext(CartContext);
+  const { cartItems, totalQuantity } = useContext(CartContext);
   const { user, logout } = useContext(AuthContext);
   const { products } = useContext(ProductContext);
 
@@ -90,7 +90,7 @@ export default function Navbar({ search, setSearch }) {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-            
+
             <AnimatePresence>
               {search && (
                 <motion.div
@@ -165,7 +165,7 @@ export default function Navbar({ search, setSearch }) {
                   </div>
                 </Badge>
               </Link>
-              
+
               <button className="md:hidden h-10 w-10 flex items-center justify-center rounded-full bg-slate-50" onClick={() => setMobileMenuOpen(true)}>
                 <Menu className="w-5 h-5 text-slate-600" />
               </button>
@@ -176,7 +176,7 @@ export default function Navbar({ search, setSearch }) {
         {/* Navigation - Desktop */}
         <div className="hidden md:flex items-center justify-between border-t border-slate-100 pt-4">
           <div className="relative">
-            <button 
+            <button
               onMouseEnter={() => setShowDepartments(true)}
               onMouseLeave={() => setShowDepartments(false)}
               className="flex items-center gap-3 bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-t-2xl font-bold transition-all"
@@ -184,7 +184,7 @@ export default function Navbar({ search, setSearch }) {
               <Menu className="w-5 h-5" />
               <span>DANH MỤC SẢN PHẨM</span>
               <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${showDepartments ? 'rotate-180' : ''}`} />
-              
+
               <AnimatePresence>
                 {showDepartments && (
                   <motion.div
@@ -211,9 +211,9 @@ export default function Navbar({ search, setSearch }) {
 
           <nav className="flex items-center gap-8">
             {['/', '/about', '/products', '/news', '/contact'].map((path, i) => (
-              <Link 
-                key={i} 
-                to={path} 
+              <Link
+                key={i}
+                to={path}
                 className="text-sm font-bold text-slate-600 hover:text-primary-600 transition-colors uppercase tracking-widest py-2 relative group"
               >
                 {path === '/' ? 'Trang chủ' : path.slice(1) === 'about' ? 'Giới thiệu' : path.slice(1) === 'products' ? 'Sản phẩm' : path.slice(1) === 'news' ? 'Tin tức' : 'Liên hệ'}
@@ -247,7 +247,7 @@ export default function Navbar({ search, setSearch }) {
             </div>
 
             <div className="mb-8">
-               <Input
+              <Input
                 placeholder="Tìm kiếm..."
                 prefix={<Search className="w-4 h-4" />}
                 className="rounded-xl py-3"
@@ -258,16 +258,16 @@ export default function Navbar({ search, setSearch }) {
 
             <nav className="flex flex-col gap-6 overflow-y-auto">
               {['/', '/about', '/products', '/news', '/contact'].map((path, i) => (
-                <Link 
-                  key={i} 
-                  to={path} 
+                <Link
+                  key={i}
+                  to={path}
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-xl font-bold text-slate-800 border-b border-slate-100 pb-2"
                 >
                   {path === '/' ? 'Trang chủ' : path.slice(1) === 'about' ? 'Giới thiệu' : path.slice(1) === 'products' ? 'Sản phẩm' : path.slice(1) === 'news' ? 'Tin tức' : 'Liên hệ'}
                 </Link>
               ))}
-              
+
               <div className="mt-4">
                 <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Danh mục</h4>
                 <div className="grid grid-cols-2 gap-3">

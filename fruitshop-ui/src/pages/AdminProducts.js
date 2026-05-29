@@ -3,14 +3,14 @@ import { AuthContext } from "../context/AuthContext";
 import { Navigate, Link, useLocation } from "react-router-dom";
 import api from "../api/axios";
 import { toast } from "react-toastify";
-import { 
-    Layout, 
-    Menu, 
-    Button, 
-    Card, 
-    Table, 
-    Tag, 
-    Avatar, 
+import {
+    Layout,
+    Menu,
+    Button,
+    Card,
+    Table,
+    Tag,
+    Avatar,
     Space,
     Typography,
     ConfigProvider,
@@ -25,6 +25,7 @@ import {
 } from 'antd';
 import { LayoutDashboard, Package, ShoppingCart, Users, BarChart3, Settings, Menu as MenuIcon, Plus, Search, Edit3, Trash2, Image as ImageIcon, UploadCloud, X } from 'lucide-react';
 import { motion } from 'framer-motion';
+import adminService from "../api/adminService";
 import { getProductImage } from "../utils/imageUtils";
 
 const { Header, Sider, Content } = Layout;
@@ -120,11 +121,11 @@ export default function AdminProducts() {
             key: 'product',
             render: (text, record) => (
                 <Space size={16}>
-                    <Avatar 
-                        src={getProductImage(record.image)} 
-                        shape="square" 
-                        size={64} 
-                        icon={<ImageIcon size={20} />} 
+                    <Avatar
+                        src={getProductImage(record.image)}
+                        shape="square"
+                        size={64}
+                        icon={<ImageIcon size={20} />}
                         className="rounded-xl border border-slate-100 shadow-sm"
                     />
                     <div>
@@ -155,6 +156,7 @@ export default function AdminProducts() {
             dataIndex: 'quantity',
             key: 'quantity',
             render: (qty) => {
+                const color = qty <= 0 ? 'red' : qty <= 10 ? 'orange' : 'green';
                 const bg = qty <= 0 ? 'bg-red-50' : qty <= 10 ? 'bg-orange-50' : 'bg-green-50';
                 const text = qty <= 0 ? 'text-red-600' : qty <= 10 ? 'text-orange-600' : 'text-green-600';
                 return (
@@ -171,8 +173,8 @@ export default function AdminProducts() {
             render: (text, record) => (
                 <Space size={12}>
                     <Tooltip title="Chỉnh sửa">
-                        <Button 
-                            icon={<Edit3 size={16} />} 
+                        <Button
+                            icon={<Edit3 size={16} />}
                             className="bg-slate-50 border-none hover:bg-primary-50 hover:text-primary-600 rounded-xl w-10 h-10 flex items-center justify-center"
                             onClick={() => openEdit(record)}
                         />
@@ -186,9 +188,9 @@ export default function AdminProducts() {
                         okButtonProps={{ danger: true, className: 'rounded-lg' }}
                         cancelButtonProps={{ className: 'rounded-lg' }}
                     >
-                        <Button 
-                            danger 
-                            icon={<Trash2 size={16} />} 
+                        <Button
+                            danger
+                            icon={<Trash2 size={16} />}
                             className="bg-red-50 border-none hover:bg-red-100 rounded-xl w-10 h-10 flex items-center justify-center"
                         />
                     </Popconfirm>
@@ -213,7 +215,7 @@ export default function AdminProducts() {
                 <Sider trigger={null} collapsible collapsed={collapsed} width={280} className="bg-white border-r border-slate-200 sticky top-0 h-screen" theme="light">
                     <div className="p-8 flex items-center gap-3">
                         <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary-200 shrink-0">
-                           <Package size={24} />
+                            <Package size={24} />
                         </div>
                         {!collapsed && <span className="text-xl font-black text-slate-900 tracking-tighter uppercase">ADMIN PANEL</span>}
                     </div>
@@ -230,17 +232,17 @@ export default function AdminProducts() {
                             </div>
                         </div>
                         <Space size={16}>
-                             <Input 
-                                prefix={<Search size={16} className="text-slate-300 mr-2" />} 
-                                placeholder="Tìm sản phẩm..." 
+                            <Input
+                                prefix={<Search size={16} className="text-slate-300 mr-2" />}
+                                placeholder="Tìm sản phẩm..."
                                 className="w-64 h-12 rounded-xl bg-slate-50 border-none"
                                 value={search}
                                 onChange={e => setSearch(e.target.value)}
                             />
-                            <Button 
-                                type="primary" 
-                                size="large" 
-                                icon={<Plus size={18} />} 
+                            <Button
+                                type="primary"
+                                size="large"
+                                icon={<Plus size={18} />}
                                 className="h-12 px-6 rounded-xl font-black flex items-center gap-2 shadow-lg shadow-primary-100"
                                 onClick={() => { setEditingId(null); form.resetFields(); setIsModalOpen(true); }}
                             >
@@ -252,10 +254,10 @@ export default function AdminProducts() {
                     <Content className="p-8">
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                             <Card className="rounded-[3rem] border-none shadow-xl shadow-slate-100 overflow-hidden">
-                                <Table 
-                                    columns={columns} 
-                                    dataSource={filtered} 
-                                    loading={loading} 
+                                <Table
+                                    columns={columns}
+                                    dataSource={filtered}
+                                    loading={loading}
                                     rowKey="id"
                                     pagination={{ pageSize: 8, className: "px-8" }}
                                 />
@@ -284,7 +286,7 @@ export default function AdminProducts() {
                                         </Form.Item>
                                         <Upload
                                             name="file"
-                                            action={`${process.env.REACT_APP_API_URL || 'https://fruitshop-production-f130.up.railway.app/api'}/admin/products/upload-image`}
+                                            action={`${process.env.REACT_APP_API_URL || 'http://localhost:8080/api'}/admin/products/upload-image`}
                                             headers={{ Authorization: `Bearer ${localStorage.getItem('token')}` }}
                                             showUploadList={false}
                                             onChange={(info) => {
@@ -307,12 +309,12 @@ export default function AdminProducts() {
                                             const image = getFieldValue('image');
                                             return image ? (
                                                 <div className="mt-2 relative w-32 h-32 rounded-2xl overflow-hidden border-2 border-slate-100 shadow-inner">
-                                                    <img 
-                                                        src={getProductImage(image)} 
-                                                        alt="Preview" 
+                                                    <img
+                                                        src={getProductImage(image)}
+                                                        alt="Preview"
                                                         className="w-full h-full object-cover"
                                                     />
-                                                    <button 
+                                                    <button
                                                         type="button"
                                                         onClick={() => form.setFieldsValue({ image: '' })}
                                                         className="absolute top-1 right-1 bg-white/80 backdrop-blur-sm p-1 rounded-full text-red-500 hover:text-red-600 transition-colors shadow-sm"

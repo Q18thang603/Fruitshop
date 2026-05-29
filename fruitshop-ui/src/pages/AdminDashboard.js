@@ -3,32 +3,33 @@ import { AuthContext } from "../context/AuthContext";
 import { Navigate, Link, useLocation } from "react-router-dom";
 import adminService from "../api/adminService";
 import { toast } from "react-toastify";
-import { 
-    Layout, 
-    Menu, 
-    Button, 
-    Card, 
-    Row, 
-    Col, 
-    Table, 
-    Tag, 
-    Badge, 
-    Avatar, 
-    Dropdown, 
+import {
+    Layout,
+    Menu,
+    Button,
+    Card,
+    Row,
+    Col,
+    Statistic,
+    Table,
+    Tag,
+    Badge,
+    Avatar,
+    Dropdown,
     Space,
     Typography,
     ConfigProvider,
     Spin,
     Select
 } from 'antd';
-import { 
-    LayoutDashboard, 
-    Package, 
-    ShoppingCart, 
-    Users, 
-    BarChart3, 
-    Settings, 
-    LogOut, 
+import {
+    LayoutDashboard,
+    Package,
+    ShoppingCart,
+    Users,
+    BarChart3,
+    Settings,
+    LogOut,
     Menu as MenuIcon,
     Bell,
     User as UserIcon,
@@ -182,8 +183,8 @@ export default function AdminDashboard() {
             title: 'Thao tác',
             key: 'action',
             render: (_, record) => (
-                <Select 
-                    defaultValue={record.status} 
+                <Select
+                    defaultValue={record.status}
                     onChange={(val) => handleStatusUpdate(record.id, val)}
                     className="w-32"
                 >
@@ -229,7 +230,7 @@ export default function AdminDashboard() {
                                                 <span className="text-slate-800">{amount.toLocaleString()} đ</span>
                                             </div>
                                             <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                                                <motion.div 
+                                                <motion.div
                                                     initial={{ width: 0 }}
                                                     animate={{ width: `${Math.min(100, (amount / (stats.totalRevenue || 1)) * 100)}%` }}
                                                     className="bg-primary-500 h-full"
@@ -257,10 +258,10 @@ export default function AdminDashboard() {
                         </Col>
                     </Row>
                     <Card className="rounded-[3rem] border-none shadow-xl shadow-slate-100 overflow-hidden" title={<span className="text-lg font-black text-slate-800 uppercase tracking-tight">Giao dịch gần đây</span>}>
-                        <Table 
-                            columns={orderColumns} 
-                            dataSource={recentOrders} 
-                            pagination={false} 
+                        <Table
+                            columns={orderColumns}
+                            dataSource={recentOrders}
+                            pagination={false}
                             rowKey="id"
                             className="admin-table-custom"
                         />
@@ -308,15 +309,15 @@ export default function AdminDashboard() {
                 <Row gutter={[24, 24]}>
                     {/* Recent Orders Table */}
                     <Col xs={24} lg={16}>
-                        <Card 
+                        <Card
                             className="rounded-[3rem] border-none shadow-xl shadow-slate-100 overflow-hidden"
                             title={<span className="text-lg font-black text-slate-800 uppercase tracking-tight">Đơn hàng gần đây</span>}
                             extra={<Link to="/admin/orders"><Button type="link" className="font-bold flex items-center gap-2">Xem tất cả <ChevronRight size={16} /></Button></Link>}
                         >
-                            <Table 
-                                columns={orderColumns} 
-                                dataSource={recentOrders} 
-                                pagination={false} 
+                            <Table
+                                columns={orderColumns}
+                                dataSource={recentOrders}
+                                pagination={false}
                                 rowKey="id"
                                 className="admin-table-custom"
                             />
@@ -325,7 +326,7 @@ export default function AdminDashboard() {
 
                     {/* Stock Alert Section */}
                     <Col xs={24} lg={8}>
-                        <Card 
+                        <Card
                             className="rounded-[3rem] border-none shadow-xl shadow-slate-100 overflow-hidden h-full"
                             title={<span className="text-lg font-black text-slate-800 uppercase tracking-tight">Cảnh báo tồn kho</span>}
                             extra={<Link to="/admin/products"><Button type="link" danger className="font-bold flex items-center gap-2">Quản lý <AlertCircle size={16} /></Button></Link>}
@@ -375,9 +376,9 @@ export default function AdminDashboard() {
         >
             <Layout className="min-h-screen bg-slate-50">
                 {/* Sidebar */}
-                <Sider 
-                    trigger={null} 
-                    collapsible 
+                <Sider
+                    trigger={null}
+                    collapsible
                     collapsed={collapsed}
                     width={280}
                     className="bg-white border-r border-slate-200 sticky top-0 h-screen overflow-hidden"
@@ -385,7 +386,7 @@ export default function AdminDashboard() {
                 >
                     <div className="p-8 flex items-center gap-3">
                         <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary-200 shrink-0">
-                           <LayoutDashboard size={24} />
+                            <LayoutDashboard size={24} />
                         </div>
                         {!collapsed && <span className="text-xl font-black text-slate-900 tracking-tighter uppercase">ADMIN PANEL</span>}
                     </div>
@@ -396,10 +397,10 @@ export default function AdminDashboard() {
                         className="border-none px-4 space-y-2"
                     />
                     <div className="absolute bottom-8 left-0 right-0 px-4">
-                        <Button 
-                            type="text" 
-                            danger 
-                            icon={<LogOut size={18} />} 
+                        <Button
+                            type="text"
+                            danger
+                            icon={<LogOut size={18} />}
                             className="w-full h-12 rounded-xl flex items-center justify-start gap-3 px-4 font-bold"
                             onClick={logout}
                         >
@@ -427,8 +428,8 @@ export default function AdminDashboard() {
                         <div className="flex items-center gap-6">
                             <Space size={24}>
                                 <div className="hidden md:flex items-center bg-slate-50 px-4 py-2 rounded-xl border border-slate-100">
-                                   <Search size={16} className="text-slate-400 mr-2" />
-                                   <input className="bg-transparent border-none outline-none text-sm w-48 placeholder:text-slate-300" placeholder="Tìm nhanh..." />
+                                    <Search size={16} className="text-slate-400 mr-2" />
+                                    <input className="bg-transparent border-none outline-none text-sm w-48 placeholder:text-slate-300" placeholder="Tìm nhanh..." />
                                 </div>
                                 <Badge count={3} dot color="#3eb63a">
                                     <Button shape="circle" icon={<Bell size={20} />} className="border-none bg-slate-50 flex items-center justify-center" />

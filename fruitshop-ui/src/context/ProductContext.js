@@ -25,13 +25,13 @@ export const ProductProvider = ({ children }) => {
 
   useEffect(() => {
     fetchProducts();
-  }, [fetchProducts]);
+  }, []);
 
   const value = useMemo(() => ({
-    products, 
-    loading, 
-    error, 
-    refreshProducts: fetchProducts 
+    products,
+    loading,
+    error,
+    refreshProducts: fetchProducts
   }), [products, loading, error, fetchProducts]);
 
   return (

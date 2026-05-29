@@ -1,13 +1,14 @@
 import HeroBanner from "../components/HeroBanner";
 import ProductList from "./ProductList";
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
+import { ProductContext } from "../context/ProductContext";
 import { motion } from "framer-motion";
-import { 
-  Leaf, 
-  Truck, 
-  RefreshCcw, 
-  ShoppingBasket, 
-  Quote, 
+import {
+  Leaf,
+  Truck,
+  RefreshCcw,
+  ShoppingBasket,
+  Quote,
   ArrowRight,
   TrendingUp,
   Award,
@@ -150,7 +151,7 @@ export default function Home({ search, category, setCategory }) {
             <div>
               <span className="text-primary-600 font-black text-xs uppercase tracking-[0.3em] mb-4 block">Đánh giá thực tế</span>
               <h2 className="text-5xl font-black text-slate-900 mb-8 leading-tight tracking-tighter">KHÁCH HÀNG TIN TƯỞNG CHÚNG TÔI</h2>
-              
+
               <div className="space-y-8">
                 {[
                   { name: "Nguyễn Thị Lan", text: "Tôi rất thích rau củ và trái cây của cửa hàng vì sản phẩm tươi, giao nhanh và đóng gói sạch sẽ." },
@@ -195,21 +196,21 @@ export default function Home({ search, category, setCategory }) {
                   </div>
                 </Card>
               ))}
-              
+
               <div className="col-span-2 relative h-64 rounded-[3rem] overflow-hidden mt-8 shadow-2xl">
-                 <img 
-                    src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=800&q=80" 
-                    className="absolute inset-0 w-full h-full object-cover"
-                    alt="Farm"
-                 />
-                 <div className="absolute inset-0 bg-primary-600/40 backdrop-blur-[2px] flex flex-col items-center justify-center text-white p-8 text-center">
-                    <h3 className="text-2xl font-black mb-2 uppercase tracking-tighter">Tham gia cộng đồng sống xanh</h3>
-                    <p className="text-sm opacity-90 font-medium mb-6">Nhận thông báo về sản phẩm mới và ưu đãi độc quyền.</p>
-                    <div className="flex w-full max-w-sm gap-2">
-                       <input className="flex-1 bg-white/20 backdrop-blur-lg border border-white/30 rounded-xl px-4 py-2 placeholder:text-white/70" placeholder="Email của bạn..." />
-                       <Button ghost className="h-11 rounded-xl border-white text-white font-bold">GỬI</Button>
-                    </div>
-                 </div>
+                <img
+                  src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=800&q=80"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  alt="Farm"
+                />
+                <div className="absolute inset-0 bg-primary-600/40 backdrop-blur-[2px] flex flex-col items-center justify-center text-white p-8 text-center">
+                  <h3 className="text-2xl font-black mb-2 uppercase tracking-tighter">Tham gia cộng đồng sống xanh</h3>
+                  <p className="text-sm opacity-90 font-medium mb-6">Nhận thông báo về sản phẩm mới và ưu đãi độc quyền.</p>
+                  <div className="flex w-full max-w-sm gap-2">
+                    <input className="flex-1 bg-white/20 backdrop-blur-lg border border-white/30 rounded-xl px-4 py-2 placeholder:text-white/70" placeholder="Email của bạn..." />
+                    <Button ghost className="h-11 rounded-xl border-white text-white font-bold">GỬI</Button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
