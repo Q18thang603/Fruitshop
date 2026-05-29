@@ -7,7 +7,7 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^13.5.0",
-    "antd": "^6.3.7",
+    "antd": "^5.24.0",
     "axios": "^1.6.8",
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",

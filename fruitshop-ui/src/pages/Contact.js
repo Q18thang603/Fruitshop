@@ -9,7 +9,7 @@ import {
   User,
   Smartphone
 } from "lucide-react";
-import { Card, Button, Input, Form, Divider } from "antd";
+import { Card, Button, Input, Form } from "antd";
 
 const { TextArea } = Input;
 

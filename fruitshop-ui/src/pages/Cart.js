@@ -11,7 +11,7 @@ import {
   CreditCard
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button, InputNumber, Divider, Empty, Card } from "antd";
+import { Button, Divider, Empty, Card } from "antd";
 import { CartContext } from "../context/CartContext";
 import { getProductImage } from "../utils/imageUtils";
 import { setFallbackImage } from "../utils/cloudinary";

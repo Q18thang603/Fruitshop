@@ -1,7 +1,6 @@
 import HeroBanner from "../components/HeroBanner";
 import ProductList from "./ProductList";
-import { useContext, useMemo } from "react";
-import { ProductContext } from "../context/ProductContext";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { 
   Leaf, 
