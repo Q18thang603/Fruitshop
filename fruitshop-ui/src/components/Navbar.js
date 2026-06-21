@@ -71,6 +71,7 @@ export default function Navbar({ search, setSearch }) {
   ].filter(Boolean);
 
   return (
+<<<<<<< HEAD
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'shadow-md' : ''}`}>
       {/* Top green info bar */}
       <div className="bg-green-800 text-white text-[11px] font-bold py-1.5 hidden md:block">
@@ -82,6 +83,127 @@ export default function Navbar({ search, setSearch }) {
           <div className="flex items-center gap-2">
             <Phone size={14} className="text-white" />
             <span>Hỗ trợ 24/7: 0999 999 999</span>
+=======
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-slate-100">
+      {/* Top Green Bar */}
+      <div className="text-white py-2 px-4 text-xs font-semibold" style={{ backgroundColor: '#166534' }}>
+        <div className="container mx-auto flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <span>🚚 Miễn phí vận chuyển cho đơn từ 300.000đ</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span>📞 Hỗ trợ 24/7: 0999 999 999</span>
+          </div>
+        </div>
+      </div>
+
+      <div className={`transition-all duration-300 ${isScrolled ? 'py-2' : 'py-4'}`}>
+        <div className="container mx-auto px-4">
+          {/* Top Header */}
+          <div className="flex items-center justify-between gap-8 mb-4">
+            {/* Logo */}
+            <Link to="/" className="flex flex-col">
+              <span className="text-2xl font-black text-primary-600 tracking-tighter leading-none">GreenGo</span>
+              <span className="text-[9px] font-bold text-slate-400 tracking-[0.05em] leading-none mt-1 uppercase">Trái cây & Thực phẩm hữu cơ</span>
+            </Link>
+
+            {/* Search Bar - Desktop */}
+            <div className="hidden md:flex flex-1 max-w-2xl relative items-center">
+              <div className="flex w-full">
+                <Input
+                  placeholder="Tìm kiếm trái cây, rau củ, thực phẩm hữu cơ..."
+                  prefix={<Search className="text-slate-400 w-4 h-4 mr-2" />}
+                  className="rounded-l-full rounded-r-none border-slate-200 hover:border-primary-400 focus:border-primary-500 py-2.5 px-6 border-r-0"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+                <Button 
+                  type="primary" 
+                  className="rounded-r-full rounded-l-none h-[42px] px-6 bg-primary-600 hover:bg-primary-700 border-none flex items-center justify-center animate-none"
+                  icon={<Search className="w-5 h-5 text-white" />}
+                />
+              </div>
+
+              <AnimatePresence>
+                {search && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden z-50"
+                  >
+                    {filteredProducts.length > 0 ? (
+                      <div className="p-2">
+                        {filteredProducts.map((p) => (
+                          <Link
+                            key={p.id}
+                            to={`/product/${p.id}`}
+                            onClick={() => setSearch("")}
+                            className="flex items-center gap-4 p-3 hover:bg-slate-50 rounded-xl transition-colors"
+                          >
+                            <img src={p.image} alt={p.name} className="w-12 h-12 object-cover rounded-lg" onError={(e) => setFallbackImage(e, p.imageFallback)} />
+                            <div>
+                              <h4 className="text-sm font-semibold text-slate-800">{p.name}</h4>
+                              <p className="text-xs text-primary-600 font-bold">{p.price.toLocaleString()} đ</p>
+                            </div>
+                          </Link>
+                        ))}
+                        <Link to="/products" className="block text-center py-2 text-xs text-slate-400 hover:text-primary-600 transition-colors border-t border-slate-50 mt-1">
+                          Xem tất cả sản phẩm
+                        </Link>
+                      </div>
+                    ) : (
+                      <div className="p-8 text-center text-slate-400">Không tìm thấy sản phẩm nào</div>
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Action Icons */}
+            <div className="flex items-center gap-2 md:gap-6">
+              <div className="hidden lg:flex items-center gap-3 text-slate-400 border-r border-slate-200 pr-6">
+                <div className="p-2.5 bg-slate-50 rounded-full">
+                  <Phone className="w-5 h-5 text-primary-600" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-slate-400 leading-none">Hỗ trợ 24/7</span>
+                  <span className="text-sm font-black text-slate-800">0999 999 999</span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-1 md:gap-4">
+              {user ? (
+                <Dropdown menu={{ items: userMenuItems }} placement="bottomRight" arrow>
+                  <Button type="text" className="h-10 w-10 flex items-center justify-center rounded-full bg-slate-50 hover:bg-slate-100 p-0 border-none">
+                    <User className="w-5 h-5 text-slate-600" />
+                  </Button>
+                </Dropdown>
+              ) : (
+                <Link to="/login" className="h-10 w-10 flex items-center justify-center rounded-full bg-slate-50 hover:bg-slate-100 transition-colors">
+                  <User className="w-5 h-5 text-slate-600" />
+                </Link>
+              )}
+
+              <Badge count={0} size="small" offset={[-4, 4]}>
+                <button className="h-10 w-10 flex items-center justify-center rounded-full bg-slate-50 hover:bg-slate-100 transition-colors">
+                  <Heart className="w-5 h-5 text-slate-600" />
+                </button>
+              </Badge>
+
+              <Link to="/cart">
+                <Badge count={totalQuantity} size="small" offset={[-4, 4]} color="#3eb63a">
+                  <div className="h-10 w-10 flex items-center justify-center rounded-full bg-primary-50 hover:bg-primary-100 transition-colors group">
+                    <ShoppingCart className="w-5 h-5 text-primary-600 group-hover:scale-110 transition-transform" />
+                  </div>
+                </Badge>
+              </Link>
+
+              <button className="md:hidden h-10 w-10 flex items-center justify-center rounded-full bg-slate-50" onClick={() => setMobileMenuOpen(true)}>
+                <Menu className="w-5 h-5 text-slate-600" />
+              </button>
+            </div>
+>>>>>>> 387baad (update homepage and product UI)
           </div>
         </div>
       </div>
@@ -263,6 +385,7 @@ export default function Navbar({ search, setSearch }) {
           </div>
         </div>
       </div>
+    </div>
 
       {/* Mobile Menu */}
       <AnimatePresence>
@@ -275,7 +398,11 @@ export default function Navbar({ search, setSearch }) {
             className="fixed inset-0 bg-white z-[60] p-6 flex flex-col md:hidden"
           >
             <div className="flex items-center justify-between mb-8">
+<<<<<<< HEAD
               <Link to="/" className="text-2xl font-black text-green-600" onClick={() => setMobileMenuOpen(false)}>GreenGo</Link>
+=======
+              <Link to="/" className="text-2xl font-black text-primary-600" onClick={() => setMobileMenuOpen(false)}>GreenGo</Link>
+>>>>>>> 387baad (update homepage and product UI)
               <button onClick={() => setMobileMenuOpen(false)} className="p-2 bg-slate-100 rounded-full">
                 <X className="w-6 h-6 text-slate-600" />
               </button>

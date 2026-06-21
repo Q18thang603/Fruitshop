@@ -6,7 +6,7 @@ const bannerImg = "https://images.unsplash.com/photo-1542838132-92c53300491e?aut
 
 export default function HeroBanner() {
   return (
-    <section className="relative h-[600px] md:h-[700px] flex items-center overflow-hidden bg-slate-900 mt-[100px] md:mt-[130px]">
+    <section className="relative h-[600px] md:h-[700px] flex items-center overflow-hidden bg-slate-900 mt-[140px] md:mt-[170px]">
       {/* Background Image with Parallax-like effect */}
       <motion.div 
         initial={{ scale: 1.2, opacity: 0 }}
