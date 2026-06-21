@@ -56,7 +56,7 @@ export default function ProductCard({ product, layout = "vertical" }) {
         <div className="flex-1 flex flex-col justify-between text-left h-full min-w-0">
           <div>
             <Link to={`/product/${product.id}`}>
-              <h3 className="text-sm sm:text-base font-black text-slate-800 hover:text-primary-650 transition-colors line-clamp-1 mb-1 leading-tight">
+              <h3 className="text-sm sm:text-base font-black text-slate-800 hover:text-green-600 transition-colors line-clamp-1 mb-1 leading-tight uppercase">
                 {product.name}
               </h3>
             </Link>
@@ -64,7 +64,7 @@ export default function ProductCard({ product, layout = "vertical" }) {
             {/* Stars Rating */}
             <div className="flex items-center gap-1 mb-2">
               <Rate disabled defaultValue={product.rating || 5} className="text-[10px] text-yellow-400" />
-              <span className="text-[9px] font-bold text-slate-400">({product.ratingCount || 120})</span>
+              <span className="text-[9px] font-bold text-slate-400">(Đánh giá)</span>
             </div>
 
             {/* Price */}
@@ -74,7 +74,7 @@ export default function ProductCard({ product, layout = "vertical" }) {
                   {(product.oldPrice || 0).toLocaleString()} đ
                 </span>
               )}
-              <span className="text-sm sm:text-base font-black text-primary-600 tracking-tight leading-none">
+              <span className="text-sm sm:text-base font-black text-green-600 tracking-tight leading-none">
                 {(product.price || 0).toLocaleString()} <span className="text-[10px] font-bold text-slate-500">đ/kg</span>
               </span>
             </div>
@@ -84,7 +84,7 @@ export default function ProductCard({ product, layout = "vertical" }) {
           <div className="mt-3">
             <button
               onClick={handleAddCart}
-              className="w-full h-9 bg-primary-600 hover:bg-primary-700 text-white text-xs font-black rounded-xl flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95"
+              className="w-full h-9 bg-green-600 hover:bg-green-700 text-white text-xs font-black rounded-xl flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95 border-none cursor-pointer"
             >
               <ShoppingBasket size={14} />
               Thêm vào giỏ
@@ -127,13 +127,8 @@ export default function ProductCard({ product, layout = "vertical" }) {
         </Tooltip>
       </div>
 
-<<<<<<< HEAD
-      {/* 1. Product Image */}
-      <Link to={`/product/${product.id}`} className="block overflow-hidden relative aspect-square bg-slate-50/50 flex-shrink-0">
-=======
       {/* Product Image Area (object-contain with padding to ensure it is never cropped) */}
       <Link to={`/product/${product.id}`} className="block overflow-hidden relative aspect-square bg-slate-50 p-4">
->>>>>>> 387baad (update homepage and product UI)
         <motion.img
           animate={{ scale: isHovered ? 1.05 : 1 }}
           transition={{ duration: 0.6 }}
@@ -141,19 +136,6 @@ export default function ProductCard({ product, layout = "vertical" }) {
           alt={product.name}
           loading="lazy"
           onError={(event) => setFallbackImage(event, product.imageFallback)}
-<<<<<<< HEAD
-          className="w-full h-full object-contain p-4"
-        />
-        <div className={`absolute inset-0 bg-black/5 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`} />
-      </Link>
-
-      {/* Content wrapper */}
-      <div className="p-6 flex flex-col flex-grow justify-between gap-4">
-        <div className="space-y-2">
-          {/* 2. Product Name */}
-          <Link to={`/product/${product.id}`} className="block">
-            <h3 className="text-sm font-extrabold text-slate-800 hover:text-green-600 transition-colors line-clamp-2 h-10 leading-snug uppercase">
-=======
           className="w-full h-full object-contain"
         />
         {/* Overlay on Hover */}
@@ -175,39 +157,27 @@ export default function ProductCard({ product, layout = "vertical" }) {
             </div>
           )}
           <Link to={`/product/${product.id}`}>
-            <h3 className="text-lg font-bold text-slate-800 hover:text-primary-600 transition-colors line-clamp-1">
->>>>>>> 387baad (update homepage and product UI)
+            <h3 className="text-sm font-extrabold text-slate-800 hover:text-green-600 transition-colors line-clamp-2 h-10 leading-snug uppercase">
               {product.name}
             </h3>
           </Link>
 
-          {/* 3. Rating */}
-          <div className="flex items-center gap-1.5">
+          {/* Rating */}
+          <div className="flex items-center gap-1.5 mt-2">
             <Rate disabled defaultValue={product.rating || 5} className="text-[9px] text-yellow-400" />
             <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">(Đánh giá)</span>
           </div>
         </div>
 
-<<<<<<< HEAD
-        {/* 4. Price & Add To Cart Button */}
-        <div className="space-y-4">
-          <div className="flex flex-col min-h-[44px] justify-end">
-=======
-        <div className="flex items-center gap-2 mb-4">
-          <Rate disabled defaultValue={product.rating || 5} className="text-[10px] text-yellow-400" />
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">(Đánh giá)</span>
-        </div>
-
-        <div className="flex items-center justify-between mt-auto">
-          <div className="flex flex-col text-left">
->>>>>>> 387baad (update homepage and product UI)
+        <div className="flex flex-col gap-4 mt-auto">
+          <div className="flex flex-col text-left min-h-[44px] justify-end">
             {product.oldPrice && (
               <span className="text-xs text-slate-400 line-through font-medium leading-none mb-1">
                 {(product.oldPrice || 0).toLocaleString()} đ
               </span>
             )}
             <span className="text-lg font-black text-green-600 tracking-tight leading-none">
-              {(product.price || 0).toLocaleString()} <span className="text-xs font-bold">đ</span>
+              {(product.price || 0).toLocaleString()} <span className="text-xs font-bold">đ/kg</span>
             </span>
           </div>
 
