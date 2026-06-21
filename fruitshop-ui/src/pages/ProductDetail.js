@@ -100,17 +100,17 @@ export default function ProductDetail() {
             animate={{ opacity: 1, x: 0 }}
             className="space-y-6"
           >
-            <div className="relative aspect-square rounded-[3rem] overflow-hidden bg-slate-50 group border border-slate-100">
+            <div className="relative aspect-square rounded-[3rem] overflow-hidden bg-slate-50 group border border-slate-100 flex items-center justify-center p-6">
                <motion.img
                 key={id}
-                initial={{ scale: 1.1, opacity: 0 }}
+                initial={{ scale: 1.05, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5 }}
                 src={getProductImage(product.image)}
                 alt={product.name}
                 loading="lazy"
                 onError={(event) => setFallbackImage(event, product.imageFallback)}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
               />
               {product.sale && (
                 <div className="absolute top-8 left-8">
@@ -123,8 +123,8 @@ export default function ProductDetail() {
             
             <div className="grid grid-cols-4 gap-4">
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className={`aspect-square rounded-2xl overflow-hidden border-2 transition-all cursor-pointer ${i === 1 ? 'border-primary-500 scale-95 shadow-lg' : 'border-transparent hover:border-primary-200 opacity-60 hover:opacity-100'}`}>
-                  <img src={getProductImage(product.image)} className="w-full h-full object-cover" loading="lazy" alt="" />
+                <div key={i} className={`aspect-square rounded-2xl overflow-hidden border-2 transition-all cursor-pointer ${i === 1 ? 'border-primary-500 scale-95 shadow-lg' : 'border-transparent hover:border-primary-200 opacity-60 hover:opacity-100'} bg-slate-50 flex items-center justify-center p-2`}>
+                  <img src={getProductImage(product.image)} className="w-full h-full object-contain" loading="lazy" alt="" />
                 </div>
               ))}
             </div>

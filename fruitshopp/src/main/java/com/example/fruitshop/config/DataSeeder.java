@@ -43,9 +43,46 @@ public class DataSeeder implements CommandLineRunner {
         }
         if (productRepository.count() == 0) {
             seedProducts();
+        } else {
+            updateBrokenImageUrls();
         }
         if (orderRepository.count() == 0) {
             seedOrders();
+        }
+    }
+
+    private void updateBrokenImageUrls() {
+        List<Product> products = productRepository.findAll();
+        boolean updated = false;
+        for (Product p : products) {
+            String img = p.getImage();
+            if (img == null) continue;
+            if (img.contains("01_oay7er.jpg")) {
+                p.setImage("https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/09_j2agcb.jpg");
+                updated = true;
+            } else if (img.contains("05_m8z3u7.jpg")) {
+                p.setImage("https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/08_fgbl70.jpg");
+                updated = true;
+            } else if (img.contains("03_u6u3c8.jpg")) {
+                p.setImage("https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/01_wp9ooz.jpg");
+                updated = true;
+            } else if (img.contains("07_q8u3c9.jpg")) {
+                p.setImage("https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/12_qjr34x.jpg");
+                updated = true;
+            } else if (img.contains("04_t8u3d1.jpg")) {
+                p.setImage("https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/02_borlta.jpg");
+                updated = true;
+            } else if (img.contains("08_w8u3e2.jpg")) {
+                p.setImage("https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/03_t6efex.jpg");
+                updated = true;
+            } else if (img.contains("09_x8u3f3.jpg")) {
+                p.setImage("https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/09_j2agcb.jpg");
+                updated = true;
+            }
+        }
+        if (updated) {
+            productRepository.saveAll(products);
+            System.out.println("DataSeeder: Successfully updated broken product image URLs in the database.");
         }
     }
 
@@ -88,13 +125,13 @@ public class DataSeeder implements CommandLineRunner {
     private void seedProducts() {
         List<Product> products = Arrays.asList(
             createProduct("Chuối Laba Đà Lạt", 25000.0, 100, "fruit", "https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/06_bmhz0b.jpg", "Chuối Laba thơm dẻo, đặc sản Đà Lạt."),
-            createProduct("Táo đỏ Organic", 85000.0, 50, "fruit", "https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/01_oay7er.jpg", "Táo đỏ giòn ngọt, nhập khẩu organic."),
-            createProduct("Bơ sáp 034", 45000.0, 30, "fruit", "https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/05_m8z3u7.jpg", "Bơ sáp 034 dài, cơm vàng, hạt nhỏ."),
-            createProduct("Cam sành Tiền Giang", 35000.0, 80, "fruit", "https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/03_u6u3c8.jpg", "Cam sành mọng nước, vị ngọt thanh."),
-            createProduct("Súp lơ xanh", 30000.0, 40, "vegetable", "https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/07_q8u3c9.jpg", "Súp lơ xanh tươi sạch, giàu dinh dưỡng."),
-            createProduct("Cà chua bi", 20000.0, 60, "vegetable", "https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/04_t8u3d1.jpg", "Cà chua bi ngọt lịm, dùng trộn salad."),
-            createProduct("Cà rốt hữu cơ", 15000.0, 5, "vegetable", "https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/08_w8u3e2.jpg", "Cà rốt hữu cơ không thuốc trừ sâu."),
-            createProduct("Ổi Đài Loan", 18000.0, 0, "fruit", "https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/09_x8u3f3.jpg", "Ổi Đài Loan giòn tan, ít hạt.")
+            createProduct("Táo đỏ Organic", 85000.0, 50, "fruit", "https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/09_j2agcb.jpg", "Táo đỏ giòn ngọt, nhập khẩu organic."),
+            createProduct("Bơ sáp 034", 45000.0, 30, "fruit", "https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/08_fgbl70.jpg", "Bơ sáp 034 dài, cơm vàng, hạt nhỏ."),
+            createProduct("Cam sành Tiền Giang", 35000.0, 80, "fruit", "https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/01_wp9ooz.jpg", "Cam sành mọng nước, vị ngọt thanh."),
+            createProduct("Súp lơ xanh", 30000.0, 40, "vegetable", "https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/12_qjr34x.jpg", "Súp lơ xanh tươi sạch, giàu dinh dưỡng."),
+            createProduct("Cà chua bi", 20000.0, 60, "vegetable", "https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/02_borlta.jpg", "Cà chua bi ngọt lịm, dùng trộn salad."),
+            createProduct("Cà rốt hữu cơ", 15000.0, 5, "vegetable", "https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/03_t6efex.jpg", "Cà rốt hữu cơ không thuốc trừ sâu."),
+            createProduct("Ổi Đài Loan", 18000.0, 0, "fruit", "https://res.cloudinary.com/dhtrcj8yk/image/upload/v1/09_j2agcb.jpg", "Ổi Đài Loan giòn tan, ít hạt.")
         );
         productRepository.saveAll(products);
     }

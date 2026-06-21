@@ -61,7 +61,7 @@ export default function LoginPage() {
                 <div className="bg-white/80 backdrop-blur-xl p-10 md:p-12 rounded-[3rem] shadow-2xl shadow-slate-200/50 border border-white/20">
                     <div className="text-center mb-10">
                         <Link to="/" className="inline-block mb-6">
-                            <span className="text-3xl font-black text-primary-600 tracking-tighter">THE MQC</span>
+                            <span className="text-3xl font-black text-primary-600 tracking-tighter">GreenGo</span>
                         </Link>
                         <h2 className="text-3xl font-black text-slate-900 tracking-tight uppercase">Chào mừng trở lại</h2>
                         <p className="text-slate-400 font-bold text-xs uppercase tracking-widest mt-2">Đăng nhập để tiếp tục mua sắm</p>

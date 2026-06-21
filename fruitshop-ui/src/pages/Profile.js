@@ -215,7 +215,7 @@ export default function Profile() {
                                                     <ShoppingBag size={40} className="text-primary-500 mb-6" />
                                                     <h4 className="text-2xl font-black tracking-tight mb-2 uppercase">Chào mừng trở lại!</h4>
                                                     <p className="text-primary-100/60 font-medium italic text-sm leading-relaxed">
-                                                        Cảm ơn bạn đã đồng hành cùng The MQC. Chúng tôi luôn nỗ lực mang đến những sản phẩm hữu cơ tươi ngon nhất cho gia đình bạn.
+                                                        Cảm ơn bạn đã đồng hành cùng GreenGo. Chúng tôi luôn nỗ lực mang đến những sản phẩm hữu cơ tươi ngon nhất cho gia đình bạn.
                                                     </p>
                                                 </div>
                                                 <div className="mt-12 relative z-10">

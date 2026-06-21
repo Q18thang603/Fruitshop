@@ -24,7 +24,7 @@ export default function Contact() {
             <header className="text-center max-w-3xl mx-auto mb-20">
                <span className="text-primary-600 font-black text-xs uppercase tracking-[0.3em] mb-4 block">Kết nối với chúng tôi</span>
                <h1 className="text-5xl md:text-6xl font-black text-slate-900 tracking-tighter uppercase leading-none mb-6">
-                  LIÊN HỆ THE MQC
+                  LIÊN HỆ GREENGO
                </h1>
                <p className="text-lg text-slate-500 font-medium italic">
                   "Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ bạn mọi lúc, mọi nơi."
@@ -52,7 +52,7 @@ export default function Contact() {
                            { icon: Phone, label: "Số điện thoại", value: "099 999 999", color: "text-primary-400" },
                            { icon: MapPin, label: "Địa chỉ", value: "Hai Bà Trưng, Hà Nội", color: "text-blue-400" },
                            { icon: Clock, label: "Giờ mở cửa", value: "08:00 - 21:00, T2 - CN", color: "text-orange-400" },
-                           { icon: Mail, label: "Email hỗ trợ", value: "hello@the-mqc.vn", color: "text-green-400" }
+                           { icon: Mail, label: "Email hỗ trợ", value: "support@greengo.vn", color: "text-green-400" }
                         ].map((item, i) => (
                            <div key={i} className="flex items-center gap-6 group">
                               <div className={`w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center ${item.color} group-hover:scale-110 transition-transform duration-300`}>
@@ -72,7 +72,7 @@ export default function Contact() {
                            {/* Placeholder for social icons */}
                            {[1, 2, 3, 4].map(i => (
                               <div key={i} className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary-600 transition-colors cursor-pointer">
-                                 <span className="text-[10px] font-black">MQC</span>
+                                 <span className="text-[10px] font-black">GGo</span>
                               </div>
                            ))}
                         </div>

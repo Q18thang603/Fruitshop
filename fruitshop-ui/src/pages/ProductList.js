@@ -37,7 +37,9 @@ export default function ProductList({
 
       const matchCategory =
         category === "all"
-          ? true
+          ? ["fruit", "vegetable", "organic"].includes(productCategory.toLowerCase())
+          : category === "promo"
+          ? (product.sale || product.oldPrice)
           : productCategory.toLowerCase() === category.toLowerCase();
 
       return (
@@ -67,7 +69,7 @@ export default function ProductList({
   return (
     <div className="space-y-12">
       {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {filteredProducts.map((product) => (
             <ProductCard
               key={`product-${product.id}`}

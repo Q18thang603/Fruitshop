@@ -15,7 +15,6 @@ import Footer from "./components/Footer";
 import Payment from "./pages/Payment";
 import Success from "./pages/Success";
 import About from "./pages/About";
-import News from "./pages/News";
 import Contact from "./pages/Contact";
 import LoginPage from "./pages/LoginPage";
 import Register from "./pages/Register";
@@ -42,7 +41,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/about" element={<About />} />
-        <Route path="/news" element={<News />} />
+
         <Route path="/contact" element={<Contact />} />
         <Route path="/category/:slug" element={<CategoryPage />} />
         <Route path="/products" element={<ProductList search={search} category={category} />} />

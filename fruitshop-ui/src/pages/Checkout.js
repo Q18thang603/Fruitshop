@@ -188,8 +188,8 @@ export default function Checkout() {
                                 <div className="space-y-6 max-h-[300px] overflow-y-auto pr-4 custom-scrollbar">
                                     {cartItems.map((item, idx) => (
                                         <div key={idx} className="flex items-center gap-4">
-                                            <div className="w-16 h-16 bg-white/10 rounded-xl overflow-hidden shrink-0">
-                                                <img src={item.image} className="w-full h-full object-cover" alt="" />
+                                            <div className="w-16 h-16 bg-white rounded-xl overflow-hidden shrink-0 flex items-center justify-center p-1 border border-white/10">
+                                                <img src={item.image} className="w-full h-full object-contain" alt="" />
                                             </div>
                                             <div className="flex-1">
                                                 <h4 className="text-sm font-black uppercase tracking-tight line-clamp-1">{item.name}</h4>

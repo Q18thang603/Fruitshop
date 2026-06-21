@@ -26,8 +26,8 @@ export default function Footer() {
                     <div className="space-y-8">
                         <div>
                             <Link to="/" className="flex flex-col">
-                                <span className="text-3xl font-black text-primary-500 tracking-tighter leading-none">THE MQC</span>
-                                <span className="text-[10px] font-bold text-slate-500 tracking-[0.2em] leading-none mt-1 uppercase">Fresh & Natural</span>
+                                <span className="text-3xl font-black text-primary-500 tracking-tighter leading-none">GreenGo</span>
+                                <span className="text-[10px] font-bold text-slate-500 tracking-[0.2em] leading-none mt-1 uppercase">Trái cây & Thực phẩm hữu cơ</span>
                             </Link>
                         </div>
                         <p className="text-slate-400 font-medium leading-relaxed italic">
@@ -50,7 +50,6 @@ export default function Footer() {
                                 { name: 'Trang chủ', path: '/' },
                                 { name: 'Sản phẩm', path: '/products' },
                                 { name: 'Giới thiệu', path: '/about' },
-                                { name: 'Tin tức', path: '/news' },
                                 { name: 'Liên hệ', path: '/contact' }
                             ].map((link, i) => (
                                 <li key={i}>
@@ -91,7 +90,7 @@ export default function Footer() {
                                 </div>
                                 <div>
                                     <p className="text-xs font-black text-slate-500 uppercase tracking-widest mb-1">Email</p>
-                                    <p className="text-sm font-bold text-slate-200">themqc@fresh.com</p>
+                                    <p className="text-sm font-bold text-slate-200">support@greengo.vn</p>
                                 </div>
                             </li>
                         </ul>
@@ -115,7 +114,7 @@ export default function Footer() {
 
                 <div className="pt-12 flex flex-col md:flex-row items-center justify-between gap-6">
                     <p className="text-slate-500 text-xs font-bold uppercase tracking-widest">
-                        © 2026 <span className="text-primary-500">THE MQC</span>. ALL RIGHTS RESERVED.
+                        © 2026 <span className="text-primary-500">GreenGo</span>. ALL RIGHTS RESERVED.
                     </p>
                     <div className="flex gap-8">
                         {['Bảo mật', 'Điều khoản', 'Giao hàng'].map((text, i) => (

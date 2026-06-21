@@ -16,6 +16,7 @@ export default function CategoryPage() {
         organic: "Bơ & Trứng",
         meat: "Thịt hữu cơ",
         dairy: "Sữa & Kem",
+        promo: "Khuyến mãi hấp dẫn",
     };
 
     return (

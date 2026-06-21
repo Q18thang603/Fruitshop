@@ -61,6 +61,10 @@ export default function HeroBanner() {
               type="primary" 
               size="large" 
               className="h-14 px-8 rounded-2xl flex items-center gap-2 group"
+              onClick={() => {
+                const el = document.getElementById("products");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
             >
               KHÁM PHÁ NGAY
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -69,6 +73,10 @@ export default function HeroBanner() {
               ghost 
               size="large" 
               className="h-14 px-8 rounded-2xl border-2 border-white/20 text-white hover:border-white hover:text-white"
+              onClick={() => {
+                const el = document.getElementById("promotions");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
             >
               XEM KHUYẾN MÃI
             </Button>

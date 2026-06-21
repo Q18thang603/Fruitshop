@@ -84,7 +84,7 @@ export default function Cart() {
                         src={getProductImage(item.image)}
                         alt={item.name}
                         loading="lazy"
-                        className="w-full h-full object-cover transition-transform group-hover:scale-110 duration-500"
+                        className="w-full h-full object-contain p-2 transition-transform group-hover:scale-110 duration-500"
                         onError={(event) => setFallbackImage(event, item.imageFallback)}
                       />
                       {item.sale && <span className="absolute top-2 left-2 bg-red-500 text-[8px] font-black text-white px-2 py-0.5 rounded-full uppercase">Sale</span>}
@@ -187,7 +187,7 @@ export default function Cart() {
                   
                   <div className="pt-6">
                     <p className="text-[10px] text-slate-400 text-center font-medium italic leading-relaxed">
-                      "Bằng cách tiến hành thanh toán, bạn đồng ý với các điều khoản và chính sách bảo mật của The MQC."
+                      "Bằng cách tiến hành thanh toán, bạn đồng ý với các điều khoản và chính sách bảo mật của GreenGo."
                     </p>
                   </div>
                 </div>

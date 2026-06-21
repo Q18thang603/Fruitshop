@@ -292,10 +292,16 @@ export default function AdminProducts() {
                                             onChange={(info) => {
                                                 if (info.file.status === 'uploading') return;
                                                 if (info.file.status === 'done') {
-                                                    form.setFieldsValue({ image: info.file.response.data });
-                                                    toast.success("Tải ảnh lên thành công");
+                                                    const res = info.file.response;
+                                                    if (res && res.success) {
+                                                        form.setFieldsValue({ image: res.data });
+                                                        toast.success("Tải ảnh lên thành công");
+                                                    } else {
+                                                        toast.error(res?.message || "Tải ảnh thất bại");
+                                                    }
                                                 } else if (info.file.status === 'error') {
-                                                    toast.error("Tải ảnh thất bại");
+                                                    const errorMsg = info.file.response?.message || "Tải ảnh thất bại";
+                                                    toast.error(errorMsg);
                                                 }
                                             }}
                                         >
@@ -308,11 +314,11 @@ export default function AdminProducts() {
                                         {({ getFieldValue }) => {
                                             const image = getFieldValue('image');
                                             return image ? (
-                                                <div className="mt-2 relative w-32 h-32 rounded-2xl overflow-hidden border-2 border-slate-100 shadow-inner">
+                                                <div className="mt-2 relative w-32 h-32 rounded-2xl overflow-hidden border-2 border-slate-100 shadow-inner flex items-center justify-center p-2 bg-slate-50">
                                                     <img
                                                         src={getProductImage(image)}
                                                         alt="Preview"
-                                                        className="w-full h-full object-cover"
+                                                        className="w-full h-full object-contain"
                                                     />
                                                     <button
                                                         type="button"

@@ -61,7 +61,7 @@ export default function About() {
               <span className="text-primary-500 text-gradient bg-clip-text">THIÊN NHIÊN</span>
             </h1>
             <p className="text-lg text-slate-300 mb-10 leading-relaxed font-medium">
-              The MQC cung cấp trái cây, rau củ và thực phẩm hữu cơ chất lượng cao với trải nghiệm mua sắm hiện đại, nhanh chóng và tiện lợi cho mọi gia đình.
+              GreenGo cung cấp trái cây, rau củ và thực phẩm hữu cơ chất lượng cao với trải nghiệm mua sắm hiện đại, nhanh chóng và tiện lợi cho mọi gia đình.
             </p>
             <Link to="/products">
               <Button type="primary" size="large" className="h-14 px-10 rounded-2xl font-black tracking-widest flex items-center gap-2 group shadow-2xl shadow-primary-500/20">
