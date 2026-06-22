@@ -15,20 +15,17 @@ import { motion } from "framer-motion";
 import {
     Form,
     Input,
-    Select,
     Button,
     Card,
     Divider,
     Radio,
-    Space,
-    Steps
+    Space
 } from "antd";
 import { CartContext } from "../context/CartContext";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import api from "../api/axios";
 
-const { Option } = Select;
 const { TextArea } = Input;
 
 export default function Checkout() {

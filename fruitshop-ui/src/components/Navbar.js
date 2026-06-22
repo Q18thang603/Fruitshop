@@ -22,7 +22,7 @@ import { ProductContext } from "../context/ProductContext";
 import { setFallbackImage } from "../utils/cloudinary";
 
 export default function Navbar({ search, setSearch }) {
-  const { cartItems, totalQuantity } = useContext(CartContext);
+  const { totalQuantity } = useContext(CartContext);
   const { user, logout } = useContext(AuthContext);
   const { products } = useContext(ProductContext);
   const location = useLocation();
